@@ -10,6 +10,7 @@ import java.util.List;
  */
 public final class PuzzleState implements Comparable<PuzzleState> {
 
+    //TODO: remove all 3's from the code and make it generic(to work with NxN puzzle)
     private static final int[] NEIGHBOURS = new int[]{-3, 3, -1, 1};
 
     private static int[] finalState = null;
@@ -35,6 +36,16 @@ public final class PuzzleState implements Comparable<PuzzleState> {
         for (int i = 0; i < this.board.length; i++) {
             if (this.board[i] == 0) {
                 for (int neighbour : NEIGHBOURS) {
+
+                    //TODO: this is a quick fix
+                    if (i % 3 == 0 && neighbour == -1) {
+                        continue;
+                    }
+
+                    if ((i - 2) % 3 == 0 && neighbour == 1) {
+                        continue;
+                    }
+
                     int x = i + neighbour;
                     if (x >= 0 && x < this.board.length) {
                         int[] nextState = new int[this.board.length];
