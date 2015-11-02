@@ -17,19 +17,19 @@ public class EightPuzzleSolver {
     public int solveFor(int[] array) {
 
         if (isSolvable(array)) {
-            Queue<PuzzleState> queue = new PriorityQueue<>();
-            Set<PuzzleState> used = new HashSet<>();
+            Queue<PuzzleState> statesQueue = new PriorityQueue<>();
+            Set<PuzzleState> usedStates = new HashSet<>();
 
-            int zero = findNull(array);
+            int indexOfZero = findZeroIndex(array);
 
-            PuzzleState startingState = new PuzzleState(array, null, zero);
+            PuzzleState startingState = new PuzzleState(array, null, indexOfZero);
 
-            queue.add(startingState);
+            statesQueue.add(startingState);
 
-            while (!queue.isEmpty()) {
-                PuzzleState state = queue.poll();
-                if (!used.contains(state)) {
-                    used.add(state);
+            while (!statesQueue.isEmpty()) {
+                PuzzleState state = statesQueue.poll();
+                if (!usedStates.contains(state)) {
+                    usedStates.add(state);
 
                     if (state.isFinal()) {
                         // --- print answer --- \\
@@ -48,12 +48,12 @@ public class EightPuzzleSolver {
                         return state.depth;
                     }
 
-                    queue.addAll(state.getPossibleMoves());
+                    statesQueue.addAll(state.getPossibleMoves());
                 }
             }
 
-            for (PuzzleState used1 : used) {
-                used1.print();
+            for (PuzzleState usedState : usedStates) {
+                usedState.print();
             }
             return -1;
         } else {
@@ -80,7 +80,7 @@ public class EightPuzzleSolver {
         return inversions;
     }
 
-    private int findNull(int[] array) {
+    private int findZeroIndex(int[] array) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 0) {
                 return i;
