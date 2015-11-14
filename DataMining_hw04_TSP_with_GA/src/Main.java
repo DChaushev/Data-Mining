@@ -12,7 +12,7 @@ public class Main {
         Population p = PopulationBuilder.initPopulation(100);
         p.sort();
         System.out.println(p);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             p = p.evolvePopulation();
             p.sort();
             System.out.println(p);

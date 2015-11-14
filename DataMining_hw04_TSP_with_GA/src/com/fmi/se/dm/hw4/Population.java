@@ -54,8 +54,9 @@ public class Population {
             nextPopulation.set(nextPopulation.size() - numberOfBestEntities + i, child);
         }
 
-        for (Tour tour : nextPopulation) {
-            mutate(tour);
+        for (int i = nextPopulation.size() - numberOfBestEntities; i < nextPopulation.size(); i++) {
+            mutate(nextPopulation.get(i));
+            nextPopulation.get(i).calculateDistance();
         }
 
         return new Population(nextPopulation);
@@ -109,18 +110,12 @@ public class Population {
         }
     }
 
+    
+    
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-//        for (Tour tour : population) {
-//            if (tour != null) {
-//                result/*.append(tour.toString())*/.append(" = " + Tour.getDistance(tour) + "\n");
-//            } else {
-//                result.append("null\n");
-//            }
-//        }
-        OptionalDouble avg = population.stream().mapToDouble(t -> Tour.getDistance(t)).average();
-        result.append(" average: " + avg.getAsDouble() + "\n");
+        result.append("Best Of this generation: ").append(population.get(0).getDistance());
         return result.toString();
     }
 

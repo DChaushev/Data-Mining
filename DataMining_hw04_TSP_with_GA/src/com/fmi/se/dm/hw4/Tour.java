@@ -47,23 +47,28 @@ public class Tour implements Comparable<Tour> {
 
     public void setTour(List<City> tour) {
         this.tour = new ArrayList<>(tour);
-        this.distance = getDistance(this);
+        calculateDistance();
     }
 
-    public static double getDistance(Tour t) {
+    public double getDistance(){
+        return this.distance;
+    }
+    
+    public double calculateDistance() {
         double distance = 0;
-        for (int i = 0; i < t.tour.size() - 1; i++) {
-            distance += t.tour.get(i).distanceTo(t.tour.get(i + 1));
+        for (int i = 0; i < this.tour.size() - 1; i++) {
+            distance += this.tour.get(i).distanceTo(this.tour.get(i + 1));
         }
-        if (t.tour.size() > 1) {
-            distance += t.tour.get(t.tour.size() - 1).distanceTo(t.tour.get(0));
+        if (this.tour.size() > 1) {
+            distance += this.tour.get(this.tour.size() - 1).distanceTo(this.tour.get(0));
         }
+        this.distance = distance;
         return distance;
     }
 
     @Override
     public int compareTo(Tour o) {
-        double result = getDistance(this) - getDistance(o);
+        double result = this.distance - o.distance;
         if (result == 0) {
             return 0;
         }
