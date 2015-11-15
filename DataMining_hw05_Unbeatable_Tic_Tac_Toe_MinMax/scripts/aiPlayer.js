@@ -15,43 +15,66 @@ function AiPlayer(gameBoard, sign) {
     };
 
     self.makeMove = function () {
-        return miniMax(2, self.sign)[1];
+        return miniMax(2, -Infinity, Infinity, self.sign)[1];
     };
 
-    var miniMax = function (depth, player) {
+    var miniMax = function (depth, alpha, beta, player) {
         var nextMoves = getNextMoves();
         var numberOfNextMoves = nextMoves.length;
 
-        var best = player === self.sign ? -Infinity : Infinity;
+        var best = player === self.sign ? alpha : beta;
         var current;
         var bestIndex = -1;
+        var move;
+        var i;
 
         if (numberOfNextMoves === 0 || depth === 0) {
             best = evaluate();
-        } else {
-            for (var i = numberOfNextMoves; i--;) {
-                var move = nextMoves[i];
+            return [best, bestIndex];
+        }
 
+        if (player === self.sign) {
+
+            for (i = numberOfNextMoves; i--;) {
+                move = nextMoves[i];
                 self.gameBoard[move] = player;
 
-                if (player === self.sign) {
-                    current = miniMax(depth - 1, self.opponentSign)[0];
-                    if (current > best) {
-                        best = current;
-                        bestIndex = move;
-                    }
-                } else {
-                    current = miniMax(depth - 1, self.sign)[0];
-                    if (current < best) {
-                        best = current;
-                        bestIndex = move;
-                    }
+                current = miniMax(depth - 1, alpha, beta, self.opponentSign)[0];
+                if (alpha < current) {
+                    alpha = current;
+                    bestIndex = move;
                 }
 
                 self.gameBoard[move] = Tile.BLANK;
+
+                if (alpha >= beta) {
+                    break;
+                }
             }
+
+            return [alpha, bestIndex];
+
+        } else if (player === self.opponentSign) {
+
+            for (i = numberOfNextMoves; i--;) {
+                move = nextMoves[i];
+                self.gameBoard[move] = player;
+
+                current = miniMax(depth - 1, alpha, beta, self.sign)[0];
+                if (beta > current) {
+                    beta = current;
+                    bestIndex = move;
+                }
+
+                self.gameBoard[move] = Tile.BLANK;
+
+                if (alpha >= beta) {
+                    break;
+                }
+            }
+
+            return [beta, bestIndex];
         }
-        return [best, bestIndex];
     };
 
     var evaluate = function () {

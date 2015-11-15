@@ -3,9 +3,9 @@ function BoardUtils() {
     var NUMBER_OF_CELLS = 3;
 
     var BOARD = "#board";
+    var CELL_ID_FORMAT = "#{0}";
 
     var NEW_ROW_FORMAT = "<tr><td id='{0}'></td><td id='{1}'></td><td id='{2}'></td></tr>";
-    var CELL_ID_FORMAT = "#{0}";
 
     this.board = [];
 
