@@ -1,4 +1,5 @@
 function BoardUtils() {
+    "use strict";
 
     var NUMBER_OF_CELLS = 3;
 
@@ -22,6 +23,10 @@ function BoardUtils() {
             );
         }
 
+        return this.board;
+    };
+
+    this.getGameBoard = function(){
         return this.board;
     };
 

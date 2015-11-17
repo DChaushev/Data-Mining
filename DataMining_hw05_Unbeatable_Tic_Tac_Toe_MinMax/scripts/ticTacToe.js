@@ -1,10 +1,13 @@
+"use strict";
+
 var COMPUTER_START_BUTTON = "#aiStart";
 
-var board;
 var canStart = true;
 
 function playerMove(cell, ai, boardUtils, callback) {
     if (boardUtils.markCell(cell, Tile.X)) {
+        var board = boardUtils.getGameBoard();
+
         canStart = false;
         if (boardUtils.hasWon(Tile.X, board)) {
             callback(Tile.X);
@@ -28,9 +31,9 @@ function playerMove(cell, ai, boardUtils, callback) {
 
 (function Game() {
     var boardUtils = new BoardUtils();
-    board = boardUtils.initBoard();
+    var board = boardUtils.initBoard();
 
-    var ai = new AiPlayer(board, Tile.O);
+    var ai = new AiPlayer(boardUtils, Tile.O);
 
     $(boardUtils.getBoardId()).on("click", "td", function (event) {
         playerMove(event.target.id, ai, boardUtils, function (winner) {
