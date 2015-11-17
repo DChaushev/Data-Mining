@@ -5,6 +5,7 @@ var canStart = true;
 
 function playerMove(cell, ai, boardUtils, callback) {
     if (boardUtils.markCell(cell, Tile.X)) {
+        canStart = false;
         if (boardUtils.hasWon(Tile.X, board)) {
             callback(Tile.X);
         } else if (boardUtils.isTie(board)) {
