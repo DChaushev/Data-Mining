@@ -15,6 +15,8 @@ public class NQueens {
 
         QueensBoard b = new QueensBoard(n);
         System.out.println(b);
+//        b.printBoard();
+//        b.printConflicts();
         b.solve();
         b.printBoard();
 
