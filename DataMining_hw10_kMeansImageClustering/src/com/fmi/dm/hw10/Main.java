@@ -58,7 +58,8 @@ public class Main {
     private static void overridePoints(List<Point> clusteredPoints, BufferedImage image) {
         for (Point p : clusteredPoints) {
             PointRGB point = (PointRGB) p;
-            image.setRGB(point.getImageX(), point.getImageY(), point.getRGB());
+            int rgb = new Color(point.getRed(), point.getGreen(), point.getBlue()).getRGB();
+            image.setRGB(point.getImageX(), point.getImageY(), rgb);
         }
     }
 

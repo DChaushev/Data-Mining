@@ -13,7 +13,4 @@ public interface Point {
     void changeValue(Point other);
 
     Point centroidOf(List<Point> points);
-    
-    int getRGB();
-
 }

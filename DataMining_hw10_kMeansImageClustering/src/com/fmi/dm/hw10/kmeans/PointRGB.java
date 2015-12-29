@@ -1,6 +1,5 @@
 package com.fmi.dm.hw10.kmeans;
 
-import java.awt.Color;
 import java.util.List;
 
 /**
@@ -104,10 +103,5 @@ public class PointRGB implements Point {
 
     public boolean equals(PointRGB other) {
         return this.red == other.red && this.blue == other.blue && this.green == other.green;
-    }
-
-    @Override
-    public int getRGB() {
-        return new Color(red, green, blue).getRGB();
     }
 }
